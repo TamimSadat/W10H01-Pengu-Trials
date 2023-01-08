@@ -3,6 +3,7 @@ package pgdp.trials;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Stack;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -62,16 +63,19 @@ public class TrialOfTheGrasses {
 		 * 
 		 * @return Stream of {@code TreeNode} in preorder.
 		 */
-		static int counter = 0;
 		public Stream<TreeNode<T>> flatten() {
 			// TODO
-			List<TreeNode<T>> nodeList = new ArrayList<>();
-			nodeList.add(this);
-			for (int i = 0; i < nodeList.size(); i++) {
-				TreeNode<T> node = nodeList.get(i);
-				nodeList.addAll(Arrays.asList(node.nodes));
+			List<TreeNode<T>> treeNodes = new ArrayList<>();
+			treeNodes.add(this);
+			int i = 0;
+			while (i < treeNodes.size()) {
+				TreeNode<T> node = treeNodes.get(i);
+				List<TreeNode<T>> nodeOfnodes = Arrays.asList(node.nodes);
+				treeNodes.addAll(++i, nodeOfnodes);
+				//https://howtodoinjava.com/java/collections/arraylist/arraylist-addall-method-example/
+				//Quelle zu addAll, die den Index und kinder der notes zu sich nimmt
 			}
-			return nodeList.stream();
+			return treeNodes.stream();
 		}
 
 		@Override
