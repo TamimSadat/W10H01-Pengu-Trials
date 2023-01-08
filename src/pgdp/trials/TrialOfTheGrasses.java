@@ -1,5 +1,8 @@
 package pgdp.trials;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -59,9 +62,16 @@ public class TrialOfTheGrasses {
 		 * 
 		 * @return Stream of {@code TreeNode} in preorder.
 		 */
+		static int counter = 0;
 		public Stream<TreeNode<T>> flatten() {
 			// TODO
-			return null;
+			List<TreeNode<T>> nodeList = new ArrayList<>();
+			nodeList.add(this);
+			for (int i = 0; i < nodeList.size(); i++) {
+				TreeNode<T> node = nodeList.get(i);
+				nodeList.addAll(Arrays.asList(node.nodes));
+			}
+			return nodeList.stream();
 		}
 
 		@Override
@@ -75,7 +85,8 @@ public class TrialOfTheGrasses {
 		TreeNode<Integer> t = new TreeNode<>(1,
 				new TreeNode<>(2, new TreeNode<>(3, new TreeNode<>(4), new TreeNode<>(5))), new TreeNode<>(5),
 				new TreeNode<>(6, new TreeNode<>(7), new TreeNode<>(8)));
-		System.out.println(t);
+
+		System.out.println(t.flatten().collect(Collectors.toList()));
 	}
 
 }
