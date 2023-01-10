@@ -22,7 +22,7 @@ public class TrialOfTheSword {
 		 * @param clazz type of values stored in the array.
 		 * @param dims  length of the individual dimensions.
 		 * @throws IllegalArgumentException if any of the dimensions has negative
-		 *                                  length.
+		 * length.
 		 */
 		public FlatArray(Class<T> clazz, int... dims) throws IllegalArgumentException {
 			int length = 1;
@@ -113,7 +113,11 @@ public class TrialOfTheSword {
 		public int computeIndex(int... idxs) {
 			checkValidIdxs(idxs);
 			// TODO
-			return -1;
+			int position = 0;
+			for (int i = 0; i < idxs.length; i++) {
+				position = position * dims[i] + idxs[i];
+			}
+			return position;
 		}
 
 		/**
